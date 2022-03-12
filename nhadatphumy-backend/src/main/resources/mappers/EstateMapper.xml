@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.phumyreal.nhadatphumybackend.mappers.EstateMapper">
+
+    <resultMap id="estateListMap" type="EstateVO">
+        <result property="estateId" column="estate_id" javaType="Long"/>
+        <result property="estateName" column="estate_name" javaType="String"/>
+        <result property="estateArea" column="estate_area" javaType="String"/>
+        <result property="residential" column="residential" javaType="String"/>
+        <result property="houseFacade" column="house_facade" javaType="String"/>
+        <result property="street" column="street" javaType="String"/>
+        <result property="price" column="price" javaType="String"/>
+        <result property="address" column="address" javaType="String"/>
+        <result property="img" column="img" javaType="String"/>
+        <result property="description" column="description" javaType="String"/>
+        <result property="distanceDt" column="distance_dt" javaType="String"/>
+        <result property="estateTpId" column="estate_tp_id" javaType="String"/>
+        <result property="wdt" column="wdt" javaType="String"/>
+        <result property="len" column="len" javaType="String"/>
+        <result property="pricePerArea" column="price_per_area" javaType="String"/>
+        <result property="streetId" column="street_id" javaType="String"/>
+        <result property="wardId" column="ward_id" javaType="String"/>
+        <result property="districtId" column="district_id" javaType="String"/>
+        <result property="provinceId" column="province_id" javaType="String"/>
+        <result property="direction" column="direction" javaType="String"/>
+        <result property="updDt" column="upd_dt" javaType="String"/>
+        <result property="creDt" column="cre_dt" javaType="String"/>
+    </resultMap>
+
+    <select id="selectEstate" resultMap="estateListMap" parameterType="hashMap">
+        SELECT estate_id
+            ,estate_name
+            ,estate_area
+            ,residential
+            ,house_facade
+            ,street
+            ,price
+            ,address
+            ,img
+            ,description
+            ,distance_dt
+            ,estate_tp_id
+            ,wdt
+            ,len
+            ,price_per_area
+            ,street_id
+            ,ward_id
+            ,district_id
+            ,province_id
+            ,upd_dt
+            ,cre_dt
+            ,direction
+        FROM estate
+        WHERE 1=1
+        <if test="estateId != null and estateId != ''">
+            AND estate_id = #{estateId}
+        </if>
+        <if test="estateName != null and estateName != ''">
+            AND UPPER(estate_name) LIKE UPPER(CONCAT('%',#{estateName},'%'))
+        </if>
+    </select>
+</mapper>
